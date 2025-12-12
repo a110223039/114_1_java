@@ -6,11 +6,10 @@
  * - 與魔法師同為遠程角色，但攻擊方式不同
  * - 使用箭矢而非魔法
  */
-
 package com.rpg.roles.ranged;
 
 import com.rpg.core.Role;
-import com.rpg.interfaces.Healable;
+
 public class Archer extends RangedRole {
     // ========== 特有屬性 ==========
     private int arrowCount;    // 箭矢數量
@@ -78,15 +77,15 @@ public class Archer extends RangedRole {
      */
     @Override
     public void showSpecialSkill() {
-        System.out.println("╔═══════════════════════════════════════════╗");
-        System.out.println("║ " + this.getName() + " 的特殊技能           ║");
-        System.out.println("╠═══════════════════════════════════════════╣");
-        System.out.println("║ 技能名稱：多重箭矢                           ║");
-        System.out.println("║ 技能描述：同時射出三支箭                      ║");
-        System.out.println("║ 技能效果：分別命中三個目標                    ║");
+        System.out.println("╔═════════════════════════════╗");
+        System.out.println("║ " + this.getName() + " 的特殊技能        ║");
+        System.out.println("╠═════════════════════════════╣");
+        System.out.println("║ 技能名稱：多重箭矢          ║");
+        System.out.println("║ 技能描述：同時射出三支箭    ║");
+        System.out.println("║ 技能效果：分別命中三個目標  ║");
         System.out.println("║ 射程：" + getRange() + " 米                ║");
-        System.out.println("║ 箭矢：" + arrowCount + "/" + maxArrows + " ║");
-        System.out.println("╚═══════════════════════════════════════════╝");
+        System.out.println("║ 箭矢：" + arrowCount + "/" + maxArrows + "               ║");
+        System.out.println("╚═════════════════════════════╝");
     }
 
     /**

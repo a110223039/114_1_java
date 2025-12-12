@@ -12,6 +12,7 @@
  * 2. 介面讓類別獲得額外的能力（防禦）
  * 3. 介面提供統一的防禦行為規範
  */
+
 package com.rpg.roles.melee;
 
 import com.rpg.core.Role;
@@ -35,15 +36,15 @@ public class ShieldSwordsMan extends SwordsMan implements Defendable {  // ← �
 
     @Override
     public void showSpecialSkill() {
-        System.out.println("╔═══════════════════════════════════╗");
-        System.out.println("║ " + this.getName() + " 的特殊技能   ║");
-        System.out.println("╠═══════════════════════════════════╣");
-        System.out.println("║ 技能名稱：盾牌猛擊                   ║");
-        System.out.println("║ 技能描述：使用盾牌撞擊敵人            ║");
-        System.out.println("║ 技能效果：造成傷害並暈眩              ║");
-        System.out.println("║ 防禦力：+" + defenseCapacity + " 點 ║");
-        System.out.println("║ 護甲值：+" + getArmor() + " 點      ║");
-        System.out.println("╚═══════════════════════════════════╝");
+        System.out.println("╔═════════════════════════════╗");
+        System.out.println("║ " + this.getName() + " 的特殊技能      ║");
+        System.out.println("╠═════════════════════════════╣");
+        System.out.println("║ 技能名稱：盾牌猛擊          ║");
+        System.out.println("║ 技能描述：使用盾牌撞擊敵人  ║");
+        System.out.println("║ 技能效果：造成傷害並暈眩    ║");
+        System.out.println("║ 防禦力：+" + defenseCapacity + " 點              ║");
+        System.out.println("║ 護甲值：+" + getArmor() + " 點              ║");
+        System.out.println("╚═════════════════════════════╝");
     }
 
     @Override

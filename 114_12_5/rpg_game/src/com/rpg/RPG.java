@@ -4,6 +4,7 @@ import com.rpg.core.Role;
 import com.rpg.interfaces.*;
 import com.rpg.roles.melee.*;
 import com.rpg.roles.ranged.*;
+
 public class RPG {
     public static void main(String[] args) {
         System.out.println("════════════════════════════════════════");

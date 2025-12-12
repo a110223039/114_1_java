@@ -12,10 +12,12 @@
  * 2. 介面讓治療能力標準化
  * 3. 不同類別可以實作相同介面但有不同實作
  */
+
 package com.rpg.roles.ranged;
 
 import com.rpg.core.Role;
 import com.rpg.interfaces.Healable;
+
 public class Magician extends RangedRole implements Healable {  // ← 實作 Healable 介面
     private int healPower;
 
@@ -39,16 +41,16 @@ public class Magician extends RangedRole implements Healable {  // ← 實作 He
 
     @Override
     public void showSpecialSkill() {
-        System.out.println("╔════════════════════════════════════╗");
-        System.out.println("║ " + this.getName() + " 的特殊技能    ║");
-        System.out.println("╠════════════════════════════════════╣");
-        System.out.println("║ 技能名稱：元素爆發                    ║");
-        System.out.println("║ 技能描述：召喚強大魔法攻擊             ║");
-        System.out.println("║ 技能效果：範圍魔法傷害                ║");
-        System.out.println("║ 額外效果：恢復自身魔力                ║");
-        System.out.println("║ 射程：" + getRange() + " 米         ║");
-        System.out.println("║ 治療力：" + healPower + " 點        ║");  // ← 新增治療力顯示
-        System.out.println("╚═══════════════════════════════════╝");
+        System.out.println("╔═════════════════════════════╗");
+        System.out.println("║ " + this.getName() + " 的特殊技能        ║");
+        System.out.println("╠═════════════════════════════╣");
+        System.out.println("║ 技能名稱：元素爆發          ║");
+        System.out.println("║ 技能描述：召喚強大魔法攻擊  ║");
+        System.out.println("║ 技能效果：範圍魔法傷害      ║");
+        System.out.println("║ 額外效果：恢復自身魔力      ║");
+        System.out.println("║ 射程：" + getRange() + " 米                ║");
+        System.out.println("║ 治療力：" + healPower + " 點            ║");  // ← 新增治療力顯示
+        System.out.println("╚═════════════════════════════╝");
     }
 
     @Override
