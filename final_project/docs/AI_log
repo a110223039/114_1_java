@@ -1,0 +1,34 @@
+# AI 溝通紀錄節錄 (AI Communication Log)
+
+## 目標
+用 SDD 規格驅動方式完成「任務管理系統」期末專題，並限制只使用課堂範圍語法。
+
+---
+
+### Prompt 1：確認作業要求與開發方向
+我詢問 AI：期末專題要交 GitHub、報告內容包含規格書、程式說明、測試、成果展示，並需以 SDD 方式進行。
+AI 建議：以 Console + OOP 架構完成任務管理系統，並先完成規格書，再實作程式與測試。
+
+---
+
+### Prompt 2：限制語法範圍
+我告訴 AI：課堂沒有教 package/enum/LocalDate/資料庫，只能用 ArrayList、繼承、介面、抽象類別、多型、例外、Lambda 等。
+AI 調整方案：改為 InMemory（ArrayList）儲存、狀態用 int 常數、日期用 String + 手寫驗證。
+
+---
+
+### Prompt 3：產生 IntelliJ 專案類別設計
+AI 給出類別：Task、User、TaskStatus、Repository 介面、InMemoryRepository、BaseService、TaskService、UserService、AppMenu。
+
+---
+
+### Prompt 4：除錯與修正
+- 問題：TaskService 使用 getPriority() 但 Task 缺少 getter
+- 解法：在 Task.java 補上 getPriority()
+- 問題：出現重複 getter（getTitle 重複）
+- 解法：刪掉重複方法，只保留一份
+
+---
+
+### Prompt 5：完成 Demo 流程與測試案例
+AI 協助整理 10 分鐘展示流程與 Test Cases，並補上逾期 OVERDUE 顯示做加分。

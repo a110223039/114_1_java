@@ -1,0 +1,125 @@
+# SDD 規格書：任務管理系統 (Task Management System)
+
+## 1. 系統目標
+提供一個小型任務管理系統，支援：
+- 新增使用者
+- 新增任務（含截止日、優先度、可指派使用者）
+- 任務狀態更新（TODO / IN_PROGRESS / DONE）
+- 任務查詢（全部 / 依狀態 / 依負責人 / 標題關鍵字）
+- 任務排序（依優先度）
+- 逾期任務標示（OVERDUE）
+
+## 2. 系統角色
+- 使用者（User）：可被指派任務
+- 系統管理者（透過選單操作）：新增/管理任務與使用者
+
+## 3. 功能需求 (Functional Requirements)
+FR1 新增使用者
+- 輸入：name（不可空白、不可重複）
+- 輸出：新增成功並顯示使用者 ID
+
+FR2 列出使用者
+- 顯示所有使用者 (id, name)
+
+FR3 新增任務
+- 輸入：title（不可空）、dueDate（yyyy-MM-dd）、priority（1..5）、assigneeId（可空）
+- 預設狀態：TODO
+- 若 assigneeId 不存在 -> 顯示錯誤
+
+FR4 列出任務（全部）
+- 顯示所有任務：id、title、dueDate、priority、status、assignee
+
+FR5 依狀態列出任務
+- 輸入：status（0/1/2）
+- 顯示該狀態任務列表
+
+FR6 依負責人列出任務
+- 輸入：userId
+- 顯示 assignee = 該 userId 的任務列表
+
+FR7 變更任務狀態
+- 輸入：taskId、status（0/1/2）
+- taskId 不存在 -> 顯示錯誤
+- status 不合法 -> 顯示錯誤
+- 成功則更新任務狀態
+
+FR8 指派任務
+- 輸入：taskId、userId
+- taskId 不存在 / userId 不存在 -> 顯示錯誤
+- 成功則更新 assignee
+
+FR9 搜尋任務（標題關鍵字）
+- 輸入：keyword
+- 回傳 title 含 keyword 的任務列表（keyword 可為空字串）
+
+FR10 排序（依優先度高→低）
+- 使用 Lambda 對任務列表排序（priority 由大到小）
+
+FR11 逾期標示（OVERDUE，加分）
+- 若 dueDate < today 且 status != DONE -> 顯示 OVERDUE
+
+## 4. 非功能需求 (Non-functional Requirements)
+NFR1 僅使用課堂範圍內 Java 語法與物件導向概念（不使用資料庫/enum/LocalDate）
+NFR2 輸入錯誤不應造成程式崩潰（使用例外處理顯示錯誤訊息）
+NFR3 系統介面為 Console CLI，方便在 10 分鐘內展示完整流程
+
+## 5. 類別設計 (Class Design)
+
+### 5.1 User
+屬性：
+- id:int
+- name:String
+
+規格：
+- name 不可為 null 或空白，否則丟 IllegalArgumentException
+
+主要方法：
+- getId(), getName(), toString()
+
+### 5.2 Task
+屬性：
+- id:int
+- title:String
+- dueDate:String (yyyy-MM-dd)
+- priority:int (1..5)
+- status:int (0/1/2)
+- assignee:User (可為 null)
+
+規格：
+- title 不可空
+- dueDate 格式必須 yyyy-MM-dd（以 DateUtil 驗證）
+- priority 必須 1..5
+- status 必須是 0/1/2
+
+主要方法：
+- setStatus(int), setAssignee(User)
+- getters：getId/getTitle/getPriority/getStatus/getAssignee
+- toStringWithToday(today)：顯示 OVERDUE（選做）
+
+### 5.3 TaskStatus（常數類別）
+- TODO=0, IN_PROGRESS=1, DONE=2
+- isValid(status)
+- toText(status)
+
+### 5.4 Repository（介面 + 多型）
+- ITaskRepository：定義 add/find/list
+- InMemoryTaskRepository：用 ArrayList 實作儲存
+
+### 5.5 Service（抽象類別 + 繼承）
+- BaseService：提供 require(cond, msg) 共用驗證
+- UserService：建立/列出/取得使用者
+- TaskService：建立任務、指派、更新狀態、查詢、排序、搜尋
+
+### 5.6 AppMenu
+Console 選單入口，負責輸入/輸出與例外處理，呼叫 Service 完成操作。
+
+## 6. 主要流程 (Flow)
+
+### 新增任務流程
+輸入 title/dueDate/priority/assigneeId -> 驗證 -> 建立 Task -> repo.addTask -> 顯示新增成功
+
+### 更新狀態流程
+輸入 taskId/status -> 檢查 task 存在 -> 檢查 status 合法 -> 更新 -> 顯示成功
+
+### 搜尋流程
+輸入 keyword -> 遍歷 tasks -> title 含 keyword 則加入結果 -> 顯示結果
